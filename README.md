@@ -1,17 +1,17 @@
-# Omniauth::Internal
+# Omniauth::Fake
 
-**omniauth-internal** is a [OmniAuth](https://github.com/intridea/omniauth)
-strategy to authenticate using Rails 3.1 `has_secure_password`
-by delegating to `User.authenticate(username, password)`.
+**omniauth-fake** is a [OmniAuth](https://github.com/intridea/omniauth)
+strategy to authenticate using just username
+by delegating to `User.fake_authenticate(username)`.
 
-**omniauth-internal** can be used as an authenticator for
+**omniauth-fake** can be used as an authenticator for
 [OmniAuth MultiPassword](https://github.com/jgraichen/omniauth-multipassword).
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'omniauth-internal'
+    gem 'omniauth-fake'
 
 And then execute:
 
@@ -19,23 +19,23 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install omniauth-internal
+    $ gem install omniauth-fake
 
 ## Usage
 
-Add a `authenticate` class method to your model:
+Add a `fake_authenticate` class method to your model:
 
 ```ruby
-  def self.authenticate(login, password)
-    find_by_email(login).try(:authenticate, password)
+  def self.fake_authenticate(login)
+    find_by_username(login)
   end
 ```
 
-You can configure the model class used by **omniauth-internal**.
+You can configure the model class used by **omniauth-fake**.
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :internal, :model => ::MyUser
+  provider :fake, :model => ::MyUser
 end
 ```
 
@@ -58,4 +58,4 @@ The request parameter names to fetch username and password.
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
 
-Copyright (c) 2012, Jan Graichen
+Copyright (c) 2012, Jan Graichen, Dmitriy Kiriyenko

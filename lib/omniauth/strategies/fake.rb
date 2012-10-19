@@ -3,7 +3,7 @@ require "omniauth/multipassword/base"
 
 module OmniAuth
   module Strategies
-    class Internal
+    class Fake
       include OmniAuth::Strategy
       include OmniAuth::MultiPassword::Base
 
@@ -16,7 +16,7 @@ module OmniAuth
       end
 
       def authenticate(username, password)
-        model.authenticate(username, password)
+        model.fake_authenticate(username)
       end
     end
   end
